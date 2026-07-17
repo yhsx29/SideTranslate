@@ -1,0 +1,35 @@
+# Python caches
+__pycache__/
+*.py[cod]
+*.pyd
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Virtual environments and local environment files
+.venv/
+venv/
+env/
+.env
+.env.*
+
+# PyInstaller output
+build/
+dist/
+*.spec
+
+# Application-local data, if redirected into the repository
+config.json
+logs/
+*.log
+
+# Editors and local agent tooling
+.vscode/
+.idea/
+.agents/
+.codex/
+
+# Windows and macOS metadata
+Thumbs.db
+Desktop.ini
+.DS_Store
