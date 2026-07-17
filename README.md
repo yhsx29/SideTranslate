@@ -1,30 +1,76 @@
-<div align="center">
+<p align="center">
+  <img src="./assets/readme/hero.svg" width="100%" alt="旁译：选中文本或截图后，在鼠标旁显示百度翻译结果的 Windows 桌面工具">
+</p>
 
-# 旁译
+<p align="center">
+  <a href="./README.md">简体中文</a> · <a href="./README_EN.md">English</a>
+</p>
 
-一款轻量、明亮的 Windows 桌面翻译工具，支持划词、快捷键和截图翻译。
+<p align="center">
+  <img src="https://img.shields.io/badge/Windows-10%20%2F%2011-4F7DF3?style=flat-square" alt="Windows 10 and 11">
+  <img src="https://img.shields.io/badge/Python-3.10%2B-0F766E?style=flat-square" alt="Python 3.10 or later">
+  <img src="https://img.shields.io/badge/Engine-Baidu%20Translate-EA580C?style=flat-square" alt="Baidu Translate">
+  <a href="./LICENSE"><img src="https://img.shields.io/badge/License-MIT-183B3A?style=flat-square" alt="MIT License"></a>
+</p>
 
-[简体中文](README.md) | [English](README_EN.md)
+旁译让翻译停留在当前工作流里：划选文本或框选屏幕，译文直接显示在鼠标附近，不需要复制到另一个应用再切回来。
 
-![Windows](https://img.shields.io/badge/Windows-10%2F11-2563EB)
-![Python](https://img.shields.io/badge/Python-3.10%2B-0F766E)
-![Translation](https://img.shields.io/badge/Engine-Baidu_Translate-EA580C)
+## 实际界面
 
-</div>
+<p align="center">
+  <img src="./docs/images/app-quick.png" width="88%" alt="旁译主窗口，包含文本输入、语言选择和快捷入口">
+</p>
 
-![旁译主界面](docs/images/app-quick.png)
+<p align="center">
+  <img src="./docs/images/translation-popup.png" width="46%" alt="显示原文和译文的圆角翻译浮窗">
+</p>
 
-## 功能
+## 核心体验
 
-- 在任意应用中划选文本，释放鼠标后自动翻译
-- 使用全局快捷键翻译当前选中的文本
-- 调用 Windows 截图工具，使用百度 OCR 识别并翻译框选区域
-- 在鼠标附近显示可拖动、可缩放、可固定的圆角翻译浮窗
-- 支持自动检测源语言以及多种目标语言
-- 可配置全局快捷键、浮窗位置、置顶状态和划词翻译开关
-- 记录剪贴板、OCR、网络请求及总耗时，便于排查性能问题
-- 百度凭据使用 Windows DPAPI 加密，仅保存在当前 Windows 用户下
-- 源码运行不依赖第三方 Python 包
+- **划词即译**：在任意支持复制的应用中拖动选择文本，释放鼠标后自动翻译。
+- **三组全局快捷键**：文本翻译、截图翻译和划词开关都能在设置页修改。
+- **截图识别**：调用 Windows 截图工具，通过百度 OCR 识别屏幕文字后继续翻译。
+- **就近显示**：圆角浮窗默认出现在鼠标旁，也可以拖动固定、调整大小或保持置顶。
+- **本机保护**：百度凭据使用 Windows DPAPI 加密，日志不保存原文、译文或凭据。
+- **可诊断**：剪贴板、OCR、网络请求和总耗时都有分阶段日志。
+
+## 工作方式
+
+<p align="center">
+  <img src="./assets/readme/workflow.svg" width="100%" alt="旁译从划词、快捷键或截图输入，经 OCR 和百度翻译后显示浮窗的四阶段流程">
+</p>
+
+文本选区会直接进入翻译；截图会先经过百度 OCR。网络操作在后台线程执行，结果由主界面线程显示，避免阻塞窗口交互。
+
+## 三步开始
+
+### 1. 准备环境
+
+- Windows 10 或 Windows 11
+- Python 3.10 或更高版本
+- Python 安装中可用的 Tcl/Tk 运行环境
+- 可访问百度服务的网络连接
+
+### 2. 下载并运行
+
+```powershell
+git clone https://github.com/yhsx29/SideTranslate.git
+cd SideTranslate
+python main.py
+```
+
+也可以双击 `start.bat`。最小化主窗口后，全局快捷键和划词监听仍会继续工作；关闭主窗口会退出程序。
+
+### 3. 填写百度凭据
+
+打开“设置”页并填写需要的服务凭据：
+
+| 功能 | 百度服务 | 凭据 |
+| --- | --- | --- |
+| 文本翻译 | [百度翻译开放平台](https://fanyi-api.baidu.com/) | `App ID`、密钥 |
+| 截图文字识别 | [百度智能云 OCR](https://cloud.baidu.com/product/ocr.html) | `API Key`、`Secret Key` |
+
+只使用文本翻译时，不需要 OCR 凭据。
 
 ## 默认快捷键
 
@@ -37,66 +83,16 @@
 
 前三个快捷键都可以在设置页修改。
 
-## 翻译浮窗
-
-![翻译浮窗](docs/images/translation-popup.png)
-
-浮窗默认显示在鼠标附近。拖动标题栏后会切换为固定位置；右下角可以调整大小。
-
-## 系统要求
-
-- Windows 10 或 Windows 11
-- Python 3.10 或更高版本，仅源码运行时需要
-- 可用的 Tcl/Tk 运行环境，通常随 Windows Python 安装器提供
-- 可访问百度翻译服务的网络连接
-
-## 配置百度服务
-
-旁译使用两套独立的百度凭据：
-
-| 功能 | 服务 | 所需凭据 |
-| --- | --- | --- |
-| 文本翻译 | [百度翻译开放平台](https://fanyi-api.baidu.com/) | `App ID`、密钥 |
-| 截图文字识别 | [百度智能云 OCR](https://cloud.baidu.com/product/ocr.html) | `API Key`、`Secret Key` |
-
-1. 在百度翻译开放平台创建应用，并开通通用文本翻译 API。
-2. 如需截图翻译，在百度智能云创建文字识别应用。
-3. 启动旁译，打开“设置”页填写对应凭据。
-4. 保存设置。
-
-只使用文本翻译时，不需要填写 OCR 凭据。
-
-## 从源码运行
-
-下载或克隆仓库后，在项目目录执行：
-
-```powershell
-python main.py
-```
-
-也可以双击 `start.bat`。最小化主窗口后，全局快捷键和划词监听仍会继续工作。关闭主窗口会退出程序。
-
-运行测试：
-
-```powershell
-python -m unittest discover -s tests -v
-```
-
-## 打包为 EXE
+## 构建 Windows 版本
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\build.ps1
 ```
 
-首次运行脚本会安装 PyInstaller。打包结果位于：
+首次构建会安装 PyInstaller，产物位于 `dist\SideTranslate\SideTranslate.exe`。当前采用目录发布模式，运行或分发时需要保留完整的 `dist\SideTranslate` 文件夹。
 
-```text
-dist\SideTranslate\SideTranslate.exe
-```
-
-当前使用 PyInstaller 目录发布模式。运行或分发时需要保留整个 `dist\SideTranslate` 文件夹，不能只复制 EXE。
-
-创建 GitHub Release 压缩包：
+<details>
+<summary>创建 GitHub Release 压缩包</summary>
 
 ```powershell
 Compress-Archive `
@@ -105,27 +101,22 @@ Compress-Archive `
   -Force
 ```
 
+</details>
+
 ## 配置、日志与隐私
 
-配置文件：
+| 内容 | 位置 |
+| --- | --- |
+| 配置 | `%APPDATA%\SideTranslate\config.json` |
+| 日志 | `%APPDATA%\SideTranslate\logs\app.log` |
 
-```text
-%APPDATA%\SideTranslate\config.json
-```
-
-日志文件：
-
-```text
-%APPDATA%\SideTranslate\logs\app.log
-```
-
-- 百度凭据使用 Windows DPAPI 加密，其他 Windows 用户无法直接解密。
+- 凭据通过 Windows DPAPI 加密，仅当前 Windows 用户可以解密。
 - 日志按 1 MB 滚动，保留 3 个历史文件。
-- 日志记录阶段、耗时、字符数量和图片大小，不记录原文、译文或百度凭据。
-- 文本翻译会将选中的文本发送到百度翻译 API。
-- 截图翻译会将框选图片发送到百度 OCR，然后将识别文本发送到百度翻译 API。
+- 文本翻译会将选区文本发送到百度翻译 API。
+- 截图翻译会将图片发送到百度 OCR，再将识别文本发送到百度翻译 API。
 
-常用耗时日志：
+<details>
+<summary>查看性能日志事件</summary>
 
 | 日志事件 | 含义 |
 | --- | --- |
@@ -136,7 +127,18 @@ Compress-Archive `
 | `http.complete operation=translation` | 翻译网络请求耗时 |
 | `operation.complete` | 本次操作总耗时 |
 
-## 项目结构
+</details>
+
+## 开发
+
+运行测试：
+
+```powershell
+python -m unittest discover -s tests -v
+```
+
+<details>
+<summary>项目结构</summary>
 
 ```text
 .
@@ -152,34 +154,15 @@ Compress-Archive `
 └── start.bat                     # 无控制台窗口启动脚本
 ```
 
-## 手动发布到 GitHub
-
-本项目不会自动创建仓库或推送代码。发布前请确认：
-
-- `.gitignore` 已排除 `build/`、`dist/`、`*.spec`、缓存和本机工具目录
-- 仓库中不存在百度凭据、配置文件或日志
-- 仓库中的 MIT `LICENSE` 文件保持不变
-
-在 GitHub 创建一个空仓库，不要自动添加 README，然后在项目目录执行：
-
-```powershell
-git init
-git add .
-git commit -m "Initial release"
-git branch -M main
-git remote add origin https://github.com/<YOUR_ACCOUNT>/<REPOSITORY_NAME>.git
-git push -u origin main
-```
-
-发布二进制文件时，建议在 GitHub 的 Releases 页面新建版本，并上传 `SideTranslate-Windows-x64.zip`，不要把 `dist/` 提交到源码分支。
+</details>
 
 ## 已知限制
 
 - 当前仅支持 Windows。
-- 从以管理员身份运行的应用中复制文本时，旁译可能也需要以管理员身份运行。
-- 某些不支持标准复制操作的应用无法进行划词翻译，可改用截图翻译。
-- 百度 API 的响应速度、配额和频率限制由对应百度账号套餐决定。
+- 从管理员权限应用复制文本时，旁译可能也需要以管理员身份运行。
+- 不支持标准复制操作的应用无法使用划词翻译，可以改用截图翻译。
+- 百度 API 的延迟、配额和频率限制由对应账号套餐决定。
 
 ## 许可证
 
-本项目使用 [MIT License](LICENSE)。
+本项目使用 [MIT License](./LICENSE)。

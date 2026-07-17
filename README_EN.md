@@ -1,30 +1,76 @@
-<div align="center">
+<p align="center">
+  <img src="./assets/readme/hero.svg" width="100%" alt="Side Translate, a Windows desktop tool that shows Baidu translations near the cursor after selecting text or a screenshot">
+</p>
 
-# Side Translate
+<p align="center">
+  <a href="./README.md">简体中文</a> · <a href="./README_EN.md">English</a>
+</p>
 
-A lightweight and bright Windows desktop translator with mouse-selection, hotkey, and screenshot translation.
+<p align="center">
+  <img src="https://img.shields.io/badge/Windows-10%20%2F%2011-4F7DF3?style=flat-square" alt="Windows 10 and 11">
+  <img src="https://img.shields.io/badge/Python-3.10%2B-0F766E?style=flat-square" alt="Python 3.10 or later">
+  <img src="https://img.shields.io/badge/Engine-Baidu%20Translate-EA580C?style=flat-square" alt="Baidu Translate">
+  <a href="./LICENSE"><img src="https://img.shields.io/badge/License-MIT-183B3A?style=flat-square" alt="MIT License"></a>
+</p>
 
-[简体中文](README.md) | [English](README_EN.md)
+Side Translate keeps translation inside your current workflow: select text or capture part of the screen, and the result appears near the cursor without switching to another application.
 
-![Windows](https://img.shields.io/badge/Windows-10%2F11-2563EB)
-![Python](https://img.shields.io/badge/Python-3.10%2B-0F766E)
-![Translation](https://img.shields.io/badge/Engine-Baidu_Translate-EA580C)
+## Real Interface
 
-</div>
+<p align="center">
+  <img src="./docs/images/app-quick.png" width="88%" alt="Side Translate main window with text input, language selection, and quick actions">
+</p>
 
-![Side Translate main window](docs/images/app-quick.png)
+<p align="center">
+  <img src="./docs/images/translation-popup.png" width="46%" alt="Rounded translation popup showing source and translated text">
+</p>
 
-## Features
+## Core Experience
 
-- Automatically translate text after selecting it with the mouse in any application
-- Translate the current text selection with a global hotkey
-- Open Windows Screen Snipping, recognize the selected region with Baidu OCR, and translate it
-- Show results in a rounded popup near the cursor that can be moved, resized, and pinned
-- Automatically detect the source language and support multiple target languages
-- Configure global hotkeys, popup placement, always-on-top behavior, and mouse-selection translation
-- Record clipboard, OCR, network, and total timings for performance diagnostics
-- Encrypt Baidu credentials with Windows DPAPI and store them only for the current Windows user
-- Run from source without third-party Python runtime packages
+- **Translate on selection**: drag to select text in any application that supports copying, then release the mouse.
+- **Three global hotkeys**: text translation, screenshot translation, and the selection-translation toggle are configurable.
+- **Screenshot OCR**: open Windows Screen Snipping, recognize the selected region with Baidu OCR, then translate it.
+- **Results in context**: the rounded popup appears near the cursor and can be moved, resized, pinned, or kept on top.
+- **Local credential protection**: Baidu credentials are encrypted with Windows DPAPI; logs exclude source text, translations, and credentials.
+- **Built-in diagnostics**: clipboard, OCR, network, and total timings are logged by stage.
+
+## How It Works
+
+<p align="center">
+  <img src="./assets/readme/workflow-en.svg" width="100%" alt="Four-stage Side Translate workflow from selection, hotkey, or screenshot through OCR and Baidu Translate to the nearby popup">
+</p>
+
+Text selections go directly to translation, while screenshots first pass through Baidu OCR. Network work runs on background threads, and the main UI thread displays the result without freezing the window.
+
+## Start in Three Steps
+
+### 1. Prepare the Environment
+
+- Windows 10 or Windows 11
+- Python 3.10 or later
+- A working Tcl/Tk runtime in the Python installation
+- Network access to Baidu services
+
+### 2. Download and Run
+
+```powershell
+git clone https://github.com/yhsx29/SideTranslate.git
+cd SideTranslate
+python main.py
+```
+
+You can also double-click `start.bat`. Global hotkeys and mouse-selection monitoring remain active while the main window is minimized. Closing the main window exits the application.
+
+### 3. Enter Baidu Credentials
+
+Open Settings and enter the credentials for the services you need:
+
+| Feature | Baidu service | Credentials |
+| --- | --- | --- |
+| Text translation | [Baidu Translate Open Platform](https://fanyi-api.baidu.com/) | `App ID` and secret key |
+| Screenshot OCR | [Baidu Cloud OCR](https://cloud.baidu.com/product/ocr.html) | `API Key` and `Secret Key` |
+
+OCR credentials are not required when only text translation is used.
 
 ## Default Hotkeys
 
@@ -35,68 +81,18 @@ A lightweight and bright Windows desktop translator with mouse-selection, hotkey
 | Toggle mouse-selection translation | `Ctrl+Alt+A` |
 | Exit | Press `Ctrl+Q` in the main window |
 
-The first three hotkeys can be changed on the Settings page.
+The first three hotkeys can be changed in Settings.
 
-## Translation Popup
-
-![Translation popup](docs/images/translation-popup.png)
-
-The popup appears near the cursor by default. Drag its title bar to switch to a fixed position, and resize it from the bottom-right corner.
-
-## Requirements
-
-- Windows 10 or Windows 11
-- Python 3.10 or later, only when running from source
-- A working Tcl/Tk runtime, normally included by the official Windows Python installer
-- Network access to Baidu translation services
-
-## Configure Baidu Services
-
-Side Translate uses two independent sets of Baidu credentials:
-
-| Feature | Service | Credentials |
-| --- | --- | --- |
-| Text translation | [Baidu Translate Open Platform](https://fanyi-api.baidu.com/) | `App ID` and secret key |
-| Screenshot OCR | [Baidu Cloud OCR](https://cloud.baidu.com/product/ocr.html) | `API Key` and `Secret Key` |
-
-1. Create an application on Baidu Translate Open Platform and enable the general text translation API.
-2. If screenshot translation is required, create an OCR application in Baidu Cloud.
-3. Start Side Translate and enter the corresponding credentials on the Settings page.
-4. Save the settings.
-
-OCR credentials are not required when only text translation is used.
-
-## Run From Source
-
-Download or clone the repository, then run this command in the project directory:
-
-```powershell
-python main.py
-```
-
-You can also double-click `start.bat`. Global hotkeys and mouse-selection monitoring remain active while the main window is minimized. Closing the main window exits the application.
-
-Run the tests with:
-
-```powershell
-python -m unittest discover -s tests -v
-```
-
-## Build the EXE
+## Build for Windows
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\build.ps1
 ```
 
-The script installs PyInstaller on its first run. The executable is generated at:
+The first build installs PyInstaller. The executable is generated at `dist\SideTranslate\SideTranslate.exe`. The build uses one-folder mode, so keep the complete `dist\SideTranslate` folder when running or distributing it.
 
-```text
-dist\SideTranslate\SideTranslate.exe
-```
-
-The current build uses PyInstaller's one-folder mode. Keep the complete `dist\SideTranslate` folder when running or distributing the application; the EXE cannot be distributed by itself.
-
-Create an archive for a GitHub Release:
+<details>
+<summary>Create a GitHub Release archive</summary>
 
 ```powershell
 Compress-Archive `
@@ -105,27 +101,22 @@ Compress-Archive `
   -Force
 ```
 
+</details>
+
 ## Configuration, Logs, and Privacy
 
-Configuration file:
+| Content | Location |
+| --- | --- |
+| Configuration | `%APPDATA%\SideTranslate\config.json` |
+| Logs | `%APPDATA%\SideTranslate\logs\app.log` |
 
-```text
-%APPDATA%\SideTranslate\config.json
-```
-
-Log file:
-
-```text
-%APPDATA%\SideTranslate\logs\app.log
-```
-
-- Baidu credentials are encrypted with Windows DPAPI and cannot be directly decrypted by another Windows user.
-- Log files rotate at 1 MB, with three backups retained.
-- Logs contain stages, timings, character counts, and image sizes. They do not contain source text, translated text, or Baidu credentials.
+- Credentials are encrypted with Windows DPAPI and can only be decrypted by the current Windows user.
+- Logs rotate at 1 MB and retain three backups.
 - Text translation sends the selected text to the Baidu Translate API.
-- Screenshot translation sends the selected image to Baidu OCR and then sends the recognized text to Baidu Translate.
+- Screenshot translation sends the image to Baidu OCR, then sends the recognized text to Baidu Translate.
 
-Common timing events:
+<details>
+<summary>View performance log events</summary>
 
 | Log event | Meaning |
 | --- | --- |
@@ -136,7 +127,18 @@ Common timing events:
 | `http.complete operation=translation` | Translation network request time |
 | `operation.complete` | Total operation time |
 
-## Project Structure
+</details>
+
+## Development
+
+Run the tests with:
+
+```powershell
+python -m unittest discover -s tests -v
+```
+
+<details>
+<summary>Project structure</summary>
 
 ```text
 .
@@ -152,34 +154,15 @@ Common timing events:
 └── start.bat                     # Windowed launcher
 ```
 
-## Publish Manually to GitHub
-
-This project does not create a repository or push code automatically. Before publishing, verify that:
-
-- `.gitignore` excludes `build/`, `dist/`, `*.spec`, caches, and local tool directories
-- No Baidu credentials, configuration files, or logs are present in the repository
-- The repository's MIT `LICENSE` file remains included
-
-Create an empty repository on GitHub without an automatically generated README, then run:
-
-```powershell
-git init
-git add .
-git commit -m "Initial release"
-git branch -M main
-git remote add origin https://github.com/<YOUR_ACCOUNT>/<REPOSITORY_NAME>.git
-git push -u origin main
-```
-
-To publish binaries, create a GitHub Release and upload `SideTranslate-Windows-x64.zip`. Do not commit `dist/` to the source branch.
+</details>
 
 ## Known Limitations
 
 - Windows is the only supported platform.
-- Side Translate may also need to run as administrator when copying text from an elevated application.
-- Mouse-selection translation does not work in applications that do not support standard copy operations; use screenshot translation instead.
-- Baidu API latency, quotas, and request-rate limits depend on the associated Baidu account plan.
+- Side Translate may also need administrator privileges when copying text from an elevated application.
+- Applications without standard copy support cannot use mouse-selection translation; use screenshot translation instead.
+- Baidu API latency, quotas, and request-rate limits depend on the associated account plan.
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the [MIT License](./LICENSE).

@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="350" viewBox="0 0 1200 350" role="img" aria-labelledby="title desc">
+  <title id="title">How Side Translate works</title>
+  <desc id="desc">Text selection, global hotkeys, or screenshots flow through clipboard capture or OCR, Baidu Translate, and a popup near the cursor.</desc>
+
+  <rect width="1200" height="350" rx="28" fill="#FFFFFF"/>
+  <rect x="1" y="1" width="1198" height="348" rx="27" fill="none" stroke="#CFE8E4" stroke-width="2"/>
+
+  <text x="52" y="58" fill="#183B3A" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="34" font-weight="800">One action, four stages</text>
+  <text x="52" y="86" fill="#64748B" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17">Capture &#8594; Recognize &#8594; Translate &#8594; Display</text>
+
+  <g id="capture" transform="translate(52 122)">
+    <text x="0" y="0" fill="#4F7DF3" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="15" font-weight="700">01 / CAPTURE</text>
+    <rect y="18" width="250" height="154" rx="18" fill="#F7FBFD" stroke="#CFE8E4"/>
+    <rect x="18" y="38" width="64" height="44" rx="13" fill="#EDF2FF"/>
+    <text x="50" y="66" text-anchor="middle" fill="#365FC7" font-family="'Segoe UI', sans-serif" font-size="16" font-weight="700">Select</text>
+    <rect x="94" y="38" width="138" height="44" rx="13" fill="#E5F7F3"/>
+    <text x="163" y="66" text-anchor="middle" fill="#0F766E" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="15">Ctrl+Alt+T</text>
+    <rect x="18" y="96" width="214" height="52" rx="13" fill="#FFF0E9"/>
+    <path d="M36 112 h18 M36 112 v12 M214 112 h-18 M214 112 v12 M36 132 v-8 M36 132 h18 M214 132 v-8 M214 132 h-18" fill="none" stroke="#C84A08" stroke-width="2" stroke-linecap="round"/>
+    <text x="125" y="129" text-anchor="middle" fill="#C84A08" font-family="'Segoe UI', sans-serif" font-size="16" font-weight="700">Screen capture</text>
+  </g>
+
+  <path d="M322 220 H360" stroke="#0F766E" stroke-width="3" stroke-linecap="round"/>
+  <path d="M350 211 L360 220 L350 229" fill="none" stroke="#0F766E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <g id="recognize" transform="translate(380 122)">
+    <text x="0" y="0" fill="#EA580C" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="15" font-weight="700">02 / RECOGNIZE</text>
+    <rect y="18" width="190" height="154" rx="18" fill="#FFF9F5" stroke="#F3D2C2"/>
+    <circle cx="50" cy="70" r="24" fill="#FFF0E9"/>
+    <text x="50" y="77" text-anchor="middle" fill="#C84A08" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="18" font-weight="700">OCR</text>
+    <text x="84" y="66" fill="#183B3A" font-family="'Segoe UI', sans-serif" font-size="16" font-weight="700">Screenshot</text>
+    <text x="84" y="90" fill="#64748B" font-family="'Segoe UI', sans-serif" font-size="15">Baidu OCR</text>
+    <line x1="22" y1="112" x2="168" y2="112" stroke="#F3D2C2"/>
+    <text x="95" y="141" text-anchor="middle" fill="#4F6668" font-family="'Segoe UI', sans-serif" font-size="14">Text selections skip OCR</text>
+  </g>
+
+  <path d="M590 220 H628" stroke="#0F766E" stroke-width="3" stroke-linecap="round"/>
+  <path d="M618 211 L628 220 L618 229" fill="none" stroke="#0F766E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <g id="translate" transform="translate(648 122)">
+    <text x="0" y="0" fill="#0F766E" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="15" font-weight="700">03 / TRANSLATE</text>
+    <rect y="18" width="190" height="154" rx="18" fill="#F2FBF9" stroke="#CFE8E4"/>
+    <rect x="22" y="42" width="146" height="54" rx="16" fill="#0F766E"/>
+    <text x="95" y="76" text-anchor="middle" fill="#FFFFFF" font-family="'Segoe UI', sans-serif" font-size="17" font-weight="800">Baidu Translate</text>
+    <text x="95" y="126" text-anchor="middle" fill="#183B3A" font-family="'Segoe UI', sans-serif" font-size="15">Auto-detect source</text>
+    <text x="95" y="150" text-anchor="middle" fill="#64748B" font-family="'Segoe UI', sans-serif" font-size="14">Multiple targets</text>
+  </g>
+
+  <path d="M858 220 H896" stroke="#0F766E" stroke-width="3" stroke-linecap="round"/>
+  <path d="M886 211 L896 220 L886 229" fill="none" stroke="#0F766E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <g id="display" transform="translate(916 122)">
+    <text x="0" y="0" fill="#4F7DF3" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="15" font-weight="700">04 / DISPLAY</text>
+    <rect y="18" width="232" height="154" rx="18" fill="#F7FBFD" stroke="#CFE8E4"/>
+    <rect x="18" y="36" width="196" height="114" rx="16" fill="#FFFFFF" stroke="#CFE8E4"/>
+    <rect x="34" y="52" width="30" height="30" rx="10" fill="#EDF2FF"/>
+    <text x="49" y="73" text-anchor="middle" fill="#4F7DF3" font-family="'Segoe UI', sans-serif" font-size="15" font-weight="800">A</text>
+    <text x="76" y="72" fill="#183B3A" font-family="'Segoe UI', sans-serif" font-size="16" font-weight="700">Popup near cursor</text>
+    <rect x="34" y="94" width="150" height="10" rx="5" fill="#E5F7F3"/>
+    <rect x="34" y="114" width="112" height="9" rx="5" fill="#DCE6FF"/>
+    <circle cx="198" cy="134" r="5" fill="#EA580C"/>
+  </g>
+
+  <text x="1148" y="324" text-anchor="end" fill="#64748B" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="14">LOCAL HOTKEYS &#183; WINDOWS DPAPI &#183; TIMING LOGS</text>
+</svg>
